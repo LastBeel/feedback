@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class Feedback_table {
+public class FeedbackTable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -17,7 +17,7 @@ public class Feedback_table {
 
     private String comment;
 
-    private Date feedback_date;
+    private Date feedbackDate;
 
     public Integer getId() {
         return id;
@@ -43,12 +43,12 @@ public class Feedback_table {
         this.comment = comment;
     }
 
-    public Date getFeedback_date() {
-        return feedback_date;
+    public Date getFeedbackDate() {
+        return feedbackDate;
     }
 
-    public void setFeedback_date(Date feedback_date) {
-        this.feedback_date = feedback_date;
+    public void setFeedbackDate(Date feedbackDate) {
+        this.feedbackDate = feedbackDate;
     }
 
 
