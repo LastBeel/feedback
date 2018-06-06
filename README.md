@@ -19,6 +19,8 @@ A café would like to implement a web site where customers can give feedback on 
   
 ## Languages
 *	Back end dev : Java(Spring Framework)
-* Front end dev: JavaScript + Typescript(Angular)
+* Front end dev: 
+  * For beautiful stats: JavaScript(d3js)
+  * Everything else: Typescript(Angular)
 *	DevOps: Git + Maven
 *	Databases: Mysql
