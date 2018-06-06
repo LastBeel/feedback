@@ -2,6 +2,8 @@ package com.example.controller;
 
 import javax.validation.Valid;
 
+import com.example.model.Feedback;
+import com.example.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,8 +19,10 @@ import com.example.service.UserService;
 @Controller
 public class LoginController {
 	
-	@Autowired
+    @Autowired
 	private UserService userService;
+	@Autowired
+    private FeedbackService feedbackService;
 
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -54,6 +58,21 @@ public class LoginController {
 			modelAndView.addObject("user", new User());
 			modelAndView.setViewName("registration");
 			
+		}
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/feedback", method = RequestMethod.POST)
+	public ModelAndView createNewFeedback(@Valid Feedback feedback, @Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("feedback");
+		} else {
+			feedbackService.saveFeedback(feedback, user);
+			modelAndView.addObject("successMessage", "Feedback has been submitted successfully");
+			modelAndView.addObject("feedback", new Feedback());
+			modelAndView.setViewName("feedback");
+
 		}
 		return modelAndView;
 	}
