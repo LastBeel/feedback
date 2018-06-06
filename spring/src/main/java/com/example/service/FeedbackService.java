@@ -1,9 +1,10 @@
 package com.example.service;
 import com.example.model.Feedback;
 import com.example.model.User;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
+
+@Service
 public interface FeedbackService {
     Feedback findFeedbackByRating(int rating);
     void saveFeedback(Feedback feedback, User user);
