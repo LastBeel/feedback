@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete
-@Repository("ClientInfoTableRepository")
-public interface ClientInfoTableRepository extends JpaRepository<ClientInfoTable, Long> {
-    ClientInfoTable findByUsername(String username);
+@Repository("ClientRepository")
+public interface ClientRepository extends JpaRepository<Client, Long> {
+    Client findByUsername(String username);
 }

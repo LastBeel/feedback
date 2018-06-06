@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class FeedbackTable {
+public class Feedback {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

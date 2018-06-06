@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class ClientInfoTable {
+public class Client {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;

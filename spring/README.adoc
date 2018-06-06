@@ -37,7 +37,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 Go to the terminal (command Prompt `cmd` in Microsoft Windows). Open MySQL client with a user that can create new users.
 
-For example: On a Linux, use the command
+For com.example: On a Linux, use the command
 
 [source, sh]
 ----
@@ -110,7 +110,7 @@ The bean name will be `userRepository`
 include::complete/src/main/java/hello/MainController.java[]
 ----
 
-NOTE: The above example does not explicitly specify `GET` vs. `PUT`, `POST`, and so forth, because `@GetMapping` is a shortcut for `@RequestMapping(method=GET)`. `@RequestMapping` maps all HTTP operations by default. Use `@RequestMapping(method=GET)` or https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/package-summary.html[other shortcut annotations] to narrow this mapping.
+NOTE: The above com.example does not explicitly specify `GET` vs. `PUT`, `POST`, and so forth, because `@GetMapping` is a shortcut for `@RequestMapping(method=GET)`. `@RequestMapping` maps all HTTP operations by default. Use `@RequestMapping(method=GET)` or https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/package-summary.html[other shortcut annotations] to narrow this mapping.
 
 
 == Make the application executable
@@ -136,7 +136,7 @@ Logging output is displayed. The service should be up and running within a few s
 
 Now that the application is running, you can test it.
 
-Use `curl` for example.
+Use `curl` for com.example.
 Now you have 2 REST Web Services you can test
 
 `localhost:8080/demo/all` This gets all data
