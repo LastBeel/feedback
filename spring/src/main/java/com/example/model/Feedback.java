@@ -26,7 +26,7 @@ public class Feedback {
     @Column(name = "userID")
     private int userID;
     @Column(name = "rating")
-    @Max(value = 5, message = "The rating must be between 1 and ")
+    @Max(value = 5, message = "The rating must be between 1 and 5")
     @Min(value = 1, message = "The rating must be between 1 and 5")
     private int rating;
     @Column(name = "comment")

@@ -20,12 +20,33 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+/*    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public ModelAndView login() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         return modelAndView;
     }
+*/
+/*@GetMapping(path = "/login")
+@ResponseBody
+public ModelAndView login() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("login");
+    return modelAndView;
+}*/
+
+
+    //TODO: a login without modelandview, something like this
+    //TODO: (directly login in without http input, through the parameters)
+    @GetMapping(path = "/login")
+    @ResponseBody
+    public ModelAndView login(@RequestParam String email,
+                              @RequestParam String password) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
 
     // /GET /user/{id} -- # Gives info about the user
     @GetMapping(path = "/get")
