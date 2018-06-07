@@ -1,7 +1,6 @@
 # Feedback
-This is a project that is on its way to become a feedback program for clients to use that is not done. 
+This is a project that is on its way to become a feedback website for users.
 There is more info under the subfolders.
-
 
 ## Goal:
 A café would like to implement a web site where customers can give feedback on their experience in the cafe.
