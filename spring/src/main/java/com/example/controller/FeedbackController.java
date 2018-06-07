@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;
-    @Autowired
-    private UserService userService;
-    //TODO: CHANGE RETURN TO JSON PLS
 
 
     //  GET /feedback/ -- # Returns a list of feedbacks
@@ -24,13 +21,6 @@ public class FeedbackController {
     Iterable<Feedback> getAllFeedback() {
         return feedbackService.getAllFeedback();
     }
-
-
-    //java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());        n.setFeedbackDate(date);
-    //Date date = new Date();
-    //feedbackService.saveFeedback(n, u);
-    //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    //TODO: current date and savefeedback including user info
 
     // GET /feedback/{id} -- # Returns a specific feedback
     @GetMapping(path = "/get")
@@ -51,10 +41,10 @@ public class FeedbackController {
         return "Saved";
     }
 
-
-    //java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());        n.setFeedbackDate(date);
-    //Date date = new Date();
-    //feedbackService.saveFeedback(n, u);
-    //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    //TODO: current date and savefeedback including user info
 }
+
+//java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());        n.setFeedbackDate(date);
+//Date date = new Date();
+//feedbackService.saveFeedback(n, u);
+//Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//TODO: current date and post including user info
