@@ -15,8 +15,13 @@ public class FeedbackServiceImpl implements FeedbackService {
     private FeedbackRepository feedbackRepository;
 
     @Override
-    public Feedback findFeedbackByRating(int rating) {
-        return feedbackRepository.findByRating(rating);
+    public Feedback findFeedbackById(int id) {
+        return feedbackRepository.findById(id);
+    }
+
+    @Override
+    public Feedback deleteFeedbackById(int id) {
+        return feedbackRepository.deleteById(id);
     }
 
     @Override

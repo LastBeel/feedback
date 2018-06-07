@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository("feedbackRepository")
 public interface FeedbackRepository  extends JpaRepository<Feedback, Integer> {
-    Feedback findByRating(int rating);
+    Feedback findById(int id);
+    Feedback deleteById(int id);
 }

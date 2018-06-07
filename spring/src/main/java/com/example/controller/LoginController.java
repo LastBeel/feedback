@@ -2,15 +2,13 @@ package com.example.controller;
 
 import javax.validation.Valid;
 
+import com.example.model.Feedback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.model.User;
@@ -29,22 +27,54 @@ public class LoginController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/getAllUsers")
+    // /GET /user/{id} -- # Gives info about the user
+    @GetMapping(path = "/get")
+    public @ResponseBody
+    User getUser(@RequestParam int id) {
+        return userService.findUserById(id);
+    }
+
+    // POST /user/ -- # Creates a new user
+    @PostMapping(value = "/post")
+    public String addNewUser(@RequestParam String email,
+                             @RequestParam String password) {
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        userService.saveUser(user);
+        return "Saved";
+    }
+
+    // DELETE /user/{id} -- # Removes a user
+    @DeleteMapping(path = "/delete")
+    public @ResponseBody
+    void deleteUser(@RequestParam int id) {
+        userService.deleteUserById(id);
+    }
+
+    //OTHER USEFUL LINKS
+
+    @GetMapping(value = "/getAll")
     public @ResponseBody
     Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
         return userService.getAllUsers();
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public ModelAndView registration() {
+
+    @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
+    public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
-        modelAndView.setViewName("registration");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
+        modelAndView.setViewName("admin/home");
         return modelAndView;
     }
 
+}
+/*
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
@@ -67,16 +97,5 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
-    public ModelAndView home() {
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-        modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("admin/home");
-        return modelAndView;
-    }
 
-
-}
+*/

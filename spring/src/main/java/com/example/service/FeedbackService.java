@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface FeedbackService {
 
-    Feedback findFeedbackByRating(int rating);
+    Feedback findFeedbackById(int id);
+
+    Feedback deleteFeedbackById(int id);
 
     void saveFeedback(Feedback feedback);
 
