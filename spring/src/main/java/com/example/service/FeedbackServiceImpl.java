@@ -20,8 +20,13 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void saveFeedback(Feedback feedback, User user) {
-        feedback.setUserID(user.getId());
+    public Iterable<Feedback> getAllFeedback() {
+        return feedbackRepository.findAll();
+    }
+
+    @Override
+    public void saveFeedback(Feedback feedback) {
+        feedbackRepository.save(feedback);
     }
 }
 
