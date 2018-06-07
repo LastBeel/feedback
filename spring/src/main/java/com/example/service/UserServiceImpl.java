@@ -1,57 +1,47 @@
 package com.example.service;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.model.Role;
 import com.example.model.User;
-import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
 
+import static java.util.Optional.ofNullable;
+
 @Service("userService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-	@Qualifier("userRepository")
-	@Autowired
-	private UserRepository userRepository;
-	@Qualifier("roleRepository")
-	@Autowired
-    private RoleRepository roleRepository;
+    Map<String, User> users = new HashMap<>();
+    @Qualifier("userRepository")
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Override
-	public User findUserById(int id) {
-		return userRepository.findById(id);
-	}
+    private UserRepository userRepository;
 
     @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public User findUserById(String id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public void deleteUserById(int id) {
-        userRepository.deleteById(id);
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override
-	public void saveUser(User user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-		userRepository.save(user);
-	}
+    public Optional<User> deleteUserById(String id) {
+        return Optional.empty();
+    }
 
-	@Override
-	public Iterable<User> getAllUsers() {
-	    return userRepository.findAll();
-	}
+    @Override
+    public User saveUser(final User user) {
+        return users.put(user.getId(), user);
+    }
+
+    @Override
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
 }

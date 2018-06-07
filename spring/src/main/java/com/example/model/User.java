@@ -1,106 +1,87 @@
 package com.example.model;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Value;
 
-import javax.validation.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import javax.validation.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+
+import static java.util.Objects.requireNonNull;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
+    private static final long serialVersionUID = 2396654715019746670L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id")
-	private int id;
-	@Column(name = "email")
-	@Email(message = "*Please provide a valid Email")
-	@NotEmpty(message = "*Please provide an email")
-	private String email;
-	@Column(name = "password")
-	@Length(min = 5, message = "*Your password must have at least 5 characters")
-	@NotEmpty(message = "*Please provide your password")
-	@Transient
-	private String password;
-	@Column(name = "name")
-	@NotEmpty(message = "*Please provide your name")
-	private String name;
-	@Column(name = "last_name")
-	@NotEmpty(message = "*Please provide your last name")
-	private String lastName;
-	@Column(name = "active")
-	private int active;
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private String id;
+    @Column(name = "username")
+    private String username;
+    @Column(name = "password")
+    private String password;
 
-	public int getId() {
-		return id;
-	}
+    User(@JsonProperty("id") final String id,
+         @JsonProperty("username") final String username,
+         @JsonProperty("password") final String password) {
+        super();
+        this.id = requireNonNull(id);
+        this.username = requireNonNull(username);
+        this.password = requireNonNull(password);
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
-	public String getPassword() {
-		return password;
-	}
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<>();
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    @JsonIgnore
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-	public String getName() {
-		return name;
-	}
+    @JsonIgnore
+    @Override
+    public String getUsername() {
+        return username;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public int getActive() {
-		return active;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
-
+    public String getId() {
+        return id;
+    }
 }

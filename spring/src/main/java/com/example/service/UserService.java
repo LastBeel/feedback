@@ -3,19 +3,19 @@ package com.example.service;
 import com.example.model.User;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public interface UserService {
 
-    User findUserById(int id);
+    User findUserById(String id);
 
-    User findUserByEmail(String email);
+    User findUserByUsername(String username);
 
-    void deleteUserById(int id);
+    Optional<User> deleteUserById(String id);
 
-    void saveUser(User user);
+    User saveUser(User user);
 
     Iterable<User> getAllUsers();
-
-
 
 }
