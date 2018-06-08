@@ -24,13 +24,11 @@ public final class UUIDAuthenticationService implements UserAuthenticationServic
     public Optional<String> login(final String username, final String password) {
         final String uuid = UUID.randomUUID().toString();
         // Validate that the username & password is correct
-        if (userServiceImpl == null){
-            return Optional.empty();
-        }
         User u = userServiceImpl.findUserByUsername(username);
         if (!userServiceImpl.findUserByUsername(username).getPassword().equals(password)) {
             return Optional.empty();
         }
+        //TODO:decrypt password
         // Get the user id from username
         activeUsers.put(uuid, u);
         return Optional.of(uuid);
