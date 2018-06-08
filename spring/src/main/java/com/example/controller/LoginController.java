@@ -5,7 +5,9 @@ import com.example.service.FeedbackService;
 import com.example.service.UserService;
 import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -13,17 +15,15 @@ import java.util.Optional;
 @Controller
 @RequestMapping(path = "/")
 public class LoginController {
-    @Autowired
-    private UUIDAuthenticationService uuidAuth;
+    //@Autowired
+    private UUIDAuthenticationService uuidAuth = new UUIDAuthenticationService();
+
     //TODO: kan inte autowirea =(((
     @GetMapping(path = "/login")
     public @ResponseBody
     String login(@RequestParam String username, @RequestParam String password) {
         Optional<String> os = uuidAuth.login(username, password);
-        if (os.isPresent()) {
-            return os.get();
-        }
-        return "";
+        return (os.isPresent() ? os.get() : "");
     }
 
     @GetMapping(path = "/logout")

@@ -29,14 +29,14 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    User(@JsonProperty("id") final String id,
+ /*   User(@JsonProperty("id") final String id,
          @JsonProperty("username") final String username,
          @JsonProperty("password") final String password) {
         super();
         this.id = requireNonNull(id);
         this.username = requireNonNull(username);
         this.password = requireNonNull(password);
-    }
+    }*/
 
 
     @JsonIgnore

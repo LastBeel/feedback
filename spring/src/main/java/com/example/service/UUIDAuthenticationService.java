@@ -1,26 +1,35 @@
 package com.example.service;
 
 import com.example.model.User;
+import com.example.repository.UserRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 import java.util.HashMap;
 
-
+@Service("userAuthenticationService")
 public final class UUIDAuthenticationService implements UserAuthenticationService {
-    @NonNull
-    UserService userService = new UserServiceImpl();
+
+    @Qualifier("userService")
     @Autowired
-    private HashMap<String, User> activeUsers;
+    private UserService userService;
+
+
+    private HashMap<String, User> activeUsers = new HashMap<String, User>();
 
     @Override
     public Optional<String> login(final String username, final String password) {
         final String uuid = UUID.randomUUID().toString();
         // Validate that the username & password is correct
+        if (userService == null){
+            return Optional.empty();
+        }
         User u = userService.findUserByUsername(username);
-        if (!u.getPassword().equals(password)) {
+        if (!userService.findUserByUsername(username).getPassword().equals(password)) {
             return Optional.empty();
         }
         // Get the user id from username
