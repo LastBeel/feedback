@@ -16,20 +16,19 @@ public final class UUIDAuthenticationService implements UserAuthenticationServic
 
     @Qualifier("userService")
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
-
-    private HashMap<String, User> activeUsers = new HashMap<String, User>();
+    private HashMap<String, User> activeUsers = new HashMap<>();
 
     @Override
     public Optional<String> login(final String username, final String password) {
         final String uuid = UUID.randomUUID().toString();
         // Validate that the username & password is correct
-        if (userService == null){
+        if (userServiceImpl == null){
             return Optional.empty();
         }
-        User u = userService.findUserByUsername(username);
-        if (!userService.findUserByUsername(username).getPassword().equals(password)) {
+        User u = userServiceImpl.findUserByUsername(username);
+        if (!userServiceImpl.findUserByUsername(username).getPassword().equals(password)) {
             return Optional.empty();
         }
         // Get the user id from username

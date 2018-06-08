@@ -15,10 +15,9 @@ import java.util.Optional;
 @Controller
 @RequestMapping(path = "/")
 public class LoginController {
-    //@Autowired
-    private UUIDAuthenticationService uuidAuth = new UUIDAuthenticationService();
+    @Autowired
+    private UUIDAuthenticationService uuidAuth;
 
-    //TODO: kan inte autowirea =(((
     @GetMapping(path = "/login")
     public @ResponseBody
     String login(@RequestParam String username, @RequestParam String password) {

@@ -29,14 +29,16 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
- /*   User(@JsonProperty("id") final String id,
+    User(@JsonProperty("id") final String id,
          @JsonProperty("username") final String username,
          @JsonProperty("password") final String password) {
         super();
         this.id = requireNonNull(id);
         this.username = requireNonNull(username);
         this.password = requireNonNull(password);
-    }*/
+    }
+
+    User(){}
 
 
     @JsonIgnore
@@ -81,7 +83,21 @@ public class User implements UserDetails {
         return true;
     }
 
+
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
