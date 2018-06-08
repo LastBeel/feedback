@@ -4,14 +4,13 @@ import com.example.configuration.SecurityConfiguration;
 import com.example.model.User;
 import com.example.repository.UserRepository;
 import lombok.NonNull;
+import org.apache.catalina.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
-import java.util.HashMap;
+import java.util.*;
 
 @Service("userAuthenticationService")
 public final class UUIDAuthenticationService implements UserAuthenticationService {
@@ -42,12 +41,23 @@ public final class UUIDAuthenticationService implements UserAuthenticationServic
     }
 
     @Override
-    public User findByToken(final String uuid) {
+    public User findUserByToken(final String uuid) {
         return activeUsers.get(uuid);
+    }
+
+    @Override
+    public String findTokenByUser(final User user) {
+  /*      for (HashMap.Entry<String, User> u : activeUsers.entrySet()) {
+            if (u.equals(user)) {
+                return u.getKey();
+            }
+        }*/
+        return null;
     }
 
     @Override
     public void logout(final String uuid) {
         activeUsers.remove(uuid);
     }
+
 }

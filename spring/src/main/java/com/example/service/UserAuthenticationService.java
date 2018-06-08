@@ -22,7 +22,15 @@ public interface UserAuthenticationService {
      * @param token user dao key
      * @return
      */
-    User findByToken(String token);
+    User findUserByToken(String token);
+
+    /**
+     * Finds a token by its user.
+     *
+     * @param user user dao key
+     * @return
+     */
+    String findTokenByUser(User user);
 
     /**
      * Logs out the given input {@code uuid}.

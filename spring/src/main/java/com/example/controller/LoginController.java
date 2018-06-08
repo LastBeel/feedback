@@ -17,6 +17,16 @@ import java.util.Optional;
 public class LoginController {
     @Autowired
     private UUIDAuthenticationService uuidAuth;
+    @Autowired
+    private FeedbackService feedbackService;
+
+
+    //  GET /feedback/ -- # Returns a list of feedbacks
+    @GetMapping(path = "/getAll")
+    public @ResponseBody
+    Iterable<Feedback> getAllFeedback() {
+        return feedbackService.getAllFeedback();
+    }
 
     @GetMapping(path = "/login")
     public @ResponseBody
