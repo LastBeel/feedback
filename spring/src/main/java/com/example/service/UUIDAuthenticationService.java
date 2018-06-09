@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 
 @Service("userAuthenticationService")
@@ -28,15 +30,17 @@ public final class UUIDAuthenticationService implements UserAuthenticationServic
         final String uuid = UUID.randomUUID().toString();
         // Validate that the username & password is correct
         if (userServiceImpl.findUserByUsername(username) == null) {
-            return Optional.of("there is no such user");
+            return Optional.of("No such user");
         }
         User u = userServiceImpl.findUserByUsername(username);
         //compares
         if (!encoder.matches(password, u.getPassword())) {
-            return Optional.of("wrong pw");
+            return Optional.of("No such user");
         }
         // Get the user id from username
         activeUsers.put(uuid, u);
+      //  ModelAndView modelAndView = new ModelAndView();
+        // old login ???modelAndView.setViewName("login");
         return Optional.of(uuid);
     }
 
