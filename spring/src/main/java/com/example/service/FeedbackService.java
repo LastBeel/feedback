@@ -16,5 +16,4 @@ public interface FeedbackService {
 
     Iterable<Feedback> getAllFeedback();
 
-    Iterable<Feedback> getAllFedback();
 }

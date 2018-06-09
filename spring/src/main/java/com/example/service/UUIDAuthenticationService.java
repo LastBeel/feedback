@@ -22,8 +22,8 @@ public final class UUIDAuthenticationService implements UserAuthenticationServic
     private UserServiceImpl userServiceImpl;
 
     private HashMap<String, User> activeUsers = new HashMap<>();
-
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     @Override
     public Optional<String> login(final String username, final String password) {

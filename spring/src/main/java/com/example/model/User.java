@@ -18,7 +18,7 @@ import static java.util.Objects.requireNonNull;
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
-    private static final long serialVersionUID = 2396654715019746670L;
+  //  private static final long serialVersionUID = 2396654715019746670L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    User(@JsonProperty("id") final String id,
+    public User(@JsonProperty("id") final String id,
          @JsonProperty("username") final String username,
          @JsonProperty("password") final String password) {
         super();
@@ -37,8 +37,8 @@ public class User implements UserDetails {
         this.username = requireNonNull(username);
         this.password = requireNonNull(password);
     }
+    public User(){}
 
-    User(){}
 
 
     @JsonIgnore

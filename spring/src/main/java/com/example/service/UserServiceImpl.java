@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.model.User;
@@ -13,8 +14,9 @@ import static java.util.Optional.ofNullable;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-
-    Map<String, User> users = new HashMap<>();
+    @Autowired
+    BCryptPasswordEncoder encoder;
+    //  Map<String, User> users = new HashMap<>();
     @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;
@@ -35,8 +37,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(final User user) {
-        return users.put(user.getId(), user);
+    public void saveUser(final User user) {
+        //return users.put(user.getId(), user);
+        user.setPassword(encoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface UserService {
 
     Optional<User> deleteUserById(String id);
 
-    User saveUser(User user);
+    void saveUser(User user);
 
     Iterable<User> getAllUsers();
 

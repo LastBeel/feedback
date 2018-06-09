@@ -29,10 +29,6 @@ public class FeedbackServiceImpl implements FeedbackService {
         return feedbackRepository.findAll();
     }
 
-    @Override
-    public Iterable<Feedback> getAllFedback() {
-        return feedbackRepository.findAll();
-    }
 
     @Override
     public void saveFeedback(Feedback feedback) {
