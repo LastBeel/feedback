@@ -35,7 +35,7 @@ public final class UUIDAuthenticationService implements UserAuthenticationServic
         User u = userServiceImpl.findUserByUsername(username);
         //compares
         if (!encoder.matches(password, u.getPassword())) {
-            return Optional.of("No such user");
+            return Optional.of("bad pw");
         }
         // Get the user id from username
         activeUsers.put(uuid, u);

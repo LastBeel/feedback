@@ -15,4 +15,6 @@ public interface FeedbackService {
     void saveFeedback(Feedback feedback);
 
     Iterable<Feedback> getAllFeedback();
+
+    Iterable<Feedback> getAllFedback();
 }

@@ -30,6 +30,11 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
+    public Iterable<Feedback> getAllFedback() {
+        return feedbackRepository.findAll();
+    }
+
+    @Override
     public void saveFeedback(Feedback feedback) {
         feedbackRepository.save(feedback);
     }

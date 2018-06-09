@@ -22,40 +22,13 @@ public class LoginController {
     private FeedbackService feedbackService;
 
 
-    // GET /feedback/{id} -- # Returns a specific feedback
-    @GetMapping(path = "/get")
-    public @ResponseBody
-    Feedback getFeedback(@RequestParam int id) {
-        return feedbackService.findFeedbackById(id);
-    }
-
-    // POST /feedback/ -- # Creates a new feedback
-    @PostMapping(path = "/post")
-    public @ResponseBody
-    String addNewFeedback(@RequestParam int rating,
-                          @RequestParam String comment) {
-        Feedback n = new Feedback();
-        n.setRating(rating);
-        n.setComment(comment);
-        feedbackService.saveFeedback(n);
-        return "Saved";
-    }
-
     @GetMapping(path = "/login")
     public @ResponseBody
     Optional<String> login(@RequestParam String username, @RequestParam String password) {
         Optional<String> os = uuidAuth.login(username, password);
-       // return (os.isPresent() ? os.get() : "");
-        return os;
+       return Optional.of(os.isPresent() ? os.get() : "");
     }
 
-
-    //  GET /feedback/ -- # Returns a list of feedbacks
-    @GetMapping(path = "/getAll")
-    public @ResponseBody
-    Iterable<Feedback> getAllFeedback() {
-        return feedbackService.getAllFeedback();
-    }
 
 
 
