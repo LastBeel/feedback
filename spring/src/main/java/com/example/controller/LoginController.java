@@ -41,10 +41,10 @@ public class LoginController {
         return Optional.of(user.getId().toString());
     }
 
-    @DeleteMapping(path = {"/delete"})
+    @RequestMapping(path = {"/delete"})
     public @ResponseBody String delete(@RequestParam Integer id) {
         userServiceImpl.deleteUserById(id);
-        return new StringBuilder().append("user with id").append(id).append(" deleted").toString();
+        return new StringBuilder().append("user with id ").append(id).append(" deleted").toString();
     }
 
 
