@@ -2,6 +2,8 @@ package com.example.service;
 
 import java.util.*;
 
+import com.example.model.Role;
+import com.example.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +22,9 @@ public class UserServiceImpl implements UserService {
     @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;
+    @Qualifier("roleRepository")
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public User findUserById(int id) {
@@ -40,6 +45,8 @@ public class UserServiceImpl implements UserService {
     public void saveUser(final User user) {
         //return users.put(user.getId(), user);
         user.setPassword(encoder.encode(user.getPassword()));
+        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
 

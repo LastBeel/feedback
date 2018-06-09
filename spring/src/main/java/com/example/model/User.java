@@ -2,6 +2,7 @@ package com.example.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,10 +32,13 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
     public User(@JsonProperty("id") final Integer id,
          @JsonProperty("username") final String username,
          @JsonProperty("password") final String password) {
-        //super();
+        super();
         this.id = requireNonNull(id);
         this.username = requireNonNull(username);
         this.password = requireNonNull(password);
@@ -101,5 +105,12 @@ public class User implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

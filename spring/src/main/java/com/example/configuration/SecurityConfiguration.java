@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Component;
 
 @Configuration
 @EnableWebSecurity
@@ -27,12 +26,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${spring.queries.users-query}")
     private String usersQuery;
 
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.
                 jdbcAuthentication()
                 .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
                 .dataSource(dataSource)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
@@ -42,26 +45,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.
                 authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/post").permitAll()
-                .antMatchers("/feedback").permitAll()
-                .antMatchers("/feedback/post").permitAll();
-
-
-        //  .antMatchers("feedback/getAll").hasAuthority("ADMIN");
-        //	.antMatchers("/getAll").permitAll()
-        //	.antMatchers("/getAll2").permitAll();
-        //	.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
-        //	.authenticated().and().csrf().disable().formLogin()
-        //	.loginPage("/login").failureUrl("/login?error=true")
-        //	.defaultSuccessUrl("/admin/home")
-			/*	.usernameParameter("username")
-				.passwordParameter("password")
-				.and().logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/").and().exceptionHandling()
-				.accessDeniedPage("/access-denied");*/
+                .antMatchers("/").permitAll();
+               /* .antMatchers("/login").permitAll()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/feedback/**").hasAuthority("ADMIN").anyRequest()
+                .authenticated().and().csrf().disable().formLogin()
+                .loginPage("/login").failureUrl("/login?error=true")
+                .defaultSuccessUrl("/feedback/getAll")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").and().exceptionHandling()
+                .accessDeniedPage("/access-denied");*/
     }
 
     @Override

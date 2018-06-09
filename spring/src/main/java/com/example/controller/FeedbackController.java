@@ -1,13 +1,18 @@
 package com.example.controller;
 
 import com.example.model.Feedback;
-import com.example.service.FeedbackService;
+import com.example.model.User;
 import com.example.service.FeedbackServiceImpl;
 import com.example.service.UUIDAuthenticationService;
-import com.example.service.UserService;
+import com.example.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 
 @Controller
@@ -17,12 +22,16 @@ public class FeedbackController {
     private UUIDAuthenticationService uuidAuth;
     @Autowired
     private FeedbackServiceImpl feedbackServiceImpl;
-
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
     //  GET /feedback/ -- # Returns a list of feedbacks
     @GetMapping(path = "/getAll")
     public @ResponseBody
     Iterable<Feedback> getAllFeedback() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userServiceImpl.findUserByUsername(auth.getName());
+        System.out.println(user.getUsername() + " yeeeeeeeeee");
         return feedbackServiceImpl.getAllFeedback();
     }
 
