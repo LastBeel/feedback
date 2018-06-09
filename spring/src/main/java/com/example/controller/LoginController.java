@@ -24,10 +24,11 @@ public class LoginController {
         return Optional.of(os.isPresent() ? os.get() : "");
     }
 
-    // GET /feedback/{id} -- # Returns a specific feedback
+    // GET /{id} -- # Returns a specific user
     @GetMapping(path = "/get")
     public @ResponseBody
     User getUser(@RequestParam int id) {
+
         return userServiceImpl.findUserById(id);
     }
 

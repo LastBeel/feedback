@@ -29,9 +29,7 @@ public class FeedbackController {
     @GetMapping(path = "/getAll")
     public @ResponseBody
     Iterable<Feedback> getAllFeedback() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userServiceImpl.findUserByUsername(auth.getName());
-        System.out.println(user.getUsername() + " yeeeeeeeeee");
+        if 
         return feedbackServiceImpl.getAllFeedback();
     }
 
@@ -43,7 +41,7 @@ public class FeedbackController {
     }
 
     // POST /feedback/ -- # Creates a new feedback
-    @PostMapping(path = "/post")
+    @RequestMapping(path = "/post")
     public @ResponseBody
     String addNewFeedback(@RequestParam Integer rating,
                           @RequestParam String comment) {

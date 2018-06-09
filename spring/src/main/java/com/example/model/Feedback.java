@@ -26,12 +26,12 @@ public class Feedback {
     @Column(name = "userID")
     private int userID;
     @Column(name = "rating")
-    @Max(value = 5, message = "The rating must be between 1 and 5")
-    @Min(value = 1, message = "The rating must be between 1 and 5")
+ //   @Max(value = 5, message = "The rating must be between 1 and 5")
+  //  @Min(value = 1, message = "The rating must be between 1 and 5")
     private int rating;
     @Column(name = "comment")
-    @NotEmpty(message = "*Please provide a comment")
-    @Length(min = 10, message = "*Your comment must have at least 4 characters")
+//    @NotEmpty(message = "*Please provide a comment")
+ //   @Length(min = 10, message = "*Your comment must have at least 4 characters")
     private String comment;
 
     public int getId() {

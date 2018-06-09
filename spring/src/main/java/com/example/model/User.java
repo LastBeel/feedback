@@ -19,32 +19,36 @@ import static java.util.Objects.requireNonNull;
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
-  //  private static final long serialVersionUID = 2396654715019746670L;
+    //  private static final long serialVersionUID = 2396654715019746670L;
 
     @Id
+    @JsonProperty
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
+    @JsonProperty
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "username")
     private String username;
+    @JsonProperty
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "password")
     private String password;
+    @JsonProperty
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "password")
+    @Column(name = "isAdmin")
     private Boolean isAdmin;
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+   // @ManyToMany(cascade = CascadeType.ALL)
+   // @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    //private Set<Role> roles;
 
     public User(@JsonProperty("id") final Integer id,
-         @JsonProperty("username") final String username,
-         @JsonProperty("password") final String password,
-                @JsonProperty("password") final Boolean isAdmin
-                ) {
+                @JsonProperty("username") final String username,
+                @JsonProperty("password") final String password,
+                @JsonProperty("isAdmin") final Boolean isAdmin
+    ) {
         super();
         this.id = requireNonNull(id);
         this.username = requireNonNull(username);
@@ -52,7 +56,8 @@ public class User implements UserDetails {
         this.isAdmin = requireNonNull(isAdmin);
     }
 
-    public User(){}
+    public User() {
+    }
 
 
     @JsonIgnore
@@ -114,13 +119,14 @@ public class User implements UserDetails {
     public void setUsername(String username) {
         this.username = username;
     }
-    public Set<Role> getRoles() {
+
+  /*  public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
+    }*/
 
     public Boolean getAdmin() {
         return isAdmin;

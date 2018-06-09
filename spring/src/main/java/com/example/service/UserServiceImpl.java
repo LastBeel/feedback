@@ -45,12 +45,11 @@ public class UserServiceImpl implements UserService {
     public void saveUser(final User user) {
         //return users.put(user.getId(), user);
         user.setPassword(encoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByRole("ADMIN");
-        //some temp solution
-        if (user.getId() != 5) {
-            user.setAdmin(true);
-        }
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        //  Role userRole = roleRepository.findByRole("ADMIN");
+        //  user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        //  some temp but working solution
+        user.setAdmin(true);
+
         userRepository.save(user);
     }
 
