@@ -34,7 +34,7 @@ public class User implements UserDetails {
     public User(@JsonProperty("id") final Integer id,
          @JsonProperty("username") final String username,
          @JsonProperty("password") final String password) {
-        super();
+        //super();
         this.id = requireNonNull(id);
         this.username = requireNonNull(username);
         this.password = requireNonNull(password);

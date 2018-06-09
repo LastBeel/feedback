@@ -12,13 +12,12 @@ import java.util.Optional;
 @Controller
 @RequestMapping(path = "/")
 public class LoginController {
-    private Integer nextId = 0;
     @Autowired
     private UUIDAuthenticationService uuidAuth;
     @Autowired
     private UserServiceImpl userServiceImpl;
 
-    @GetMapping(path = {"/", "/login"})
+    @GetMapping(path = {"/login"})
     public @ResponseBody
     Optional<String> login(@RequestParam String username, @RequestParam String password) {
         Optional<String> os = uuidAuth.login(username, password);
@@ -34,21 +33,16 @@ public class LoginController {
 
 
     @RequestMapping(path = {"/post"})
-    public Optional<String> post(@RequestParam String username, @RequestParam String password) {
-        //only iterated the first time
-        //there is no user with Id nextId, so it makes a loop until found
-        while (userServiceImpl.findUserById(nextId) != null) {
-            nextId++;
-        }
-        User user = new User(nextId, username, password);
-        nextId++;
-
+    public @ResponseBody Optional<String> post(@RequestParam String username, @RequestParam String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
         userServiceImpl.saveUser(user);
         return Optional.of(user.getId().toString());
     }
 
     @DeleteMapping(path = {"/delete"})
-    public String delete(@RequestParam Integer id) {
+    public @ResponseBody String delete(@RequestParam Integer id) {
         userServiceImpl.deleteUserById(id);
         return new StringBuilder().append("user with id").append(id).append(" deleted").toString();
     }
