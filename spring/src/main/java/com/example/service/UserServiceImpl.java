@@ -46,6 +46,10 @@ public class UserServiceImpl implements UserService {
         //return users.put(user.getId(), user);
         user.setPassword(encoder.encode(user.getPassword()));
         Role userRole = roleRepository.findByRole("ADMIN");
+        //some temp solution
+        if (user.getId() != 5) {
+            user.setAdmin(true);
+        }
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
