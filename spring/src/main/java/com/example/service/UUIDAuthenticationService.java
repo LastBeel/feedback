@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.swing.text.html.Option;
 import java.util.*;
@@ -22,8 +21,8 @@ public final class UUIDAuthenticationService implements UserAuthenticationServic
     private UserServiceImpl userServiceImpl;
 
     private HashMap<String, User> activeUsers = new HashMap<>();
-    @Autowired
-    BCryptPasswordEncoder encoder;
+
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override
     public Optional<String> login(final String username, final String password) {

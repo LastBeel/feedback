@@ -23,13 +23,15 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private String id;
+    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "username")
     private String username;
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "password")
     private String password;
 
-    public User(@JsonProperty("id") final String id,
+    public User(@JsonProperty("id") final Integer id,
          @JsonProperty("username") final String username,
          @JsonProperty("password") final String password) {
         super();
@@ -37,8 +39,8 @@ public class User implements UserDetails {
         this.username = requireNonNull(username);
         this.password = requireNonNull(password);
     }
-    public User(){}
 
+    public User(){}
 
 
     @JsonIgnore
@@ -84,11 +86,11 @@ public class User implements UserDetails {
     }
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

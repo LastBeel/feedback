@@ -8,11 +8,11 @@ import java.util.Optional;
 @Service
 public interface UserService {
 
-    User findUserById(String id);
+    User findUserById(int id);
 
     User findUserByUsername(String username);
 
-    Optional<User> deleteUserById(String id);
+    Optional<User> deleteUserById(int id);
 
     void saveUser(User user);
 

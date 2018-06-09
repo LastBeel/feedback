@@ -44,7 +44,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login").permitAll()
-        .antMatchers("feedback/getAll").hasAuthority("ADMIN");
+                .antMatchers("/post").permitAll()
+                .antMatchers("/feedback").permitAll()
+                .antMatchers("/feedback/post").permitAll();
+
+
+        //  .antMatchers("feedback/getAll").hasAuthority("ADMIN");
         //	.antMatchers("/getAll").permitAll()
         //	.antMatchers("/getAll2").permitAll();
         //	.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()

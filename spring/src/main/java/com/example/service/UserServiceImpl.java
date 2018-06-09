@@ -14,15 +14,15 @@ import static java.util.Optional.ofNullable;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-    @Autowired
-    BCryptPasswordEncoder encoder;
+
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     //  Map<String, User> users = new HashMap<>();
     @Qualifier("userRepository")
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public User findUserById(String id) {
+    public User findUserById(int id) {
         return userRepository.findById(id);
     }
 
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> deleteUserById(String id) {
+    public Optional<User> deleteUserById(int id) {
         return Optional.empty();
     }
 
